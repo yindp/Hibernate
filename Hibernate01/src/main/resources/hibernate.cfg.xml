@@ -19,5 +19,9 @@
         <mapping resource="StuCourse.hbm.xml"/>
         <mapping resource="Student.hbm.xml"/>
         <mapping resource="Course.hbm.xml"/>
+
+        <!--Hibernate Annotation-->
+        <mapping class="com.yinom.pdd.hibernate01.bean.User"/>
+        <mapping class="com.yinom.pdd.hibernate01.bean.Role"/>
     </session-factory>
 </hibernate-configuration>
