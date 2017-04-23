@@ -59,4 +59,24 @@ public class TestHQL {
 
 
     }
+
+    @Test
+    public void testUniqueResult() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            /*Employee employee = (Employee) session.createQuery("from Employee where password=222").uniqueResult();
+            System.out.println(employee);*/
+            //Long count=(Long)session.createQuery("select count (*) from Employee").uniqueResult();
+            int count = Integer.valueOf(session.createQuery("select count (*) from Employee").uniqueResult().toString());
+            System.out.println(count);
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+
+
+    }
 }
