@@ -79,6 +79,7 @@ public class TestHQL {
 
 
     }
+
     @Test
     public void testDistinct() {
         Session session = null;
@@ -89,6 +90,46 @@ public class TestHQL {
                 String obj = list.get(i);
                 System.out.println(obj);
             }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+
+
+    }
+
+    @Test
+    public void testBetweenAnd() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            List<Employee> list = session.createQuery("from Employee where salary between 800 and 1000").list();
+            for (int i = 0; i < list.size(); i++) {
+                Employee employee = list.get(i);
+                System.out.println(employee.getUsername() + ":" + employee.getSalary());
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+
+
+    }
+
+    @Test
+    public void testAvg() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            Double avgSalary =(Double) session.createQuery("select avg(salary) from Employee").uniqueResult();
+            System.out.println("Avg salary:"+avgSalary);
+            Object[] salary = (Object[]) session.createQuery("select max (salary),min (salary) from Employee").uniqueResult();
+            System.out.println("Max salary:"+salary[0]);
+            System.out.println("Min salary:"+salary[1]);
         } catch (Exception e) {
 
             e.printStackTrace();
