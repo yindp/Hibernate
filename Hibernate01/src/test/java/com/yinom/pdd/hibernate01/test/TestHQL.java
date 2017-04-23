@@ -143,4 +143,54 @@ public class TestHQL {
 
 
     }
+
+    @Test
+    public void testPager() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            List<Employee> employeeList = session.createQuery("from Employee order by salary").setFirstResult(0).setMaxResults(3).list();
+            for (Employee employee : employeeList) {
+                System.out.println(employee);
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+
+
+    }
+
+    @Test
+    public void testPagerPlus() {
+        showResultByPager(4);
+
+    }
+
+    public void showResultByPager(int pageSize) {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            int currentPage = 1;
+            int sumPage = 1;
+            int sumRecord = 1;
+            sumRecord = Integer.valueOf(session.createQuery("select count (*) from Employee").uniqueResult().toString());
+            sumPage = (sumRecord - 1) / pageSize + 1;
+
+            for (int i = 0; i < sumPage; i++) {
+                System.out.println("*****************NO" + (i+1) + " Page");
+                List<Employee> employeeList = session.createQuery("from Employee").setFirstResult((i - 1) * pageSize).setMaxResults(pageSize).list();
+                for (Employee employee : employeeList) {
+                    System.out.println(employee);
+                }
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+    }
 }
