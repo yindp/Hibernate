@@ -16,5 +16,8 @@
         <mapping resource="Department.hbm.xml"/>
         <mapping resource="Person.hbm.xml"/>
         <mapping resource="IdCard.hbm.xml"/>
+        <mapping resource="StuCourse.hbm.xml"/>
+        <mapping resource="Student.hbm.xml"/>
+        <mapping resource="Course.hbm.xml"/>
     </session-factory>
 </hibernate-configuration>
