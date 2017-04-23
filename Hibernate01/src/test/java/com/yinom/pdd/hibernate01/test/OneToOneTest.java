@@ -37,4 +37,26 @@ public class OneToOneTest {
             MySessionFactory.close(session);
         }
     }
+    @Test
+    public void test02() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            session.beginTransaction();
+
+            Person p = new Person();
+            p.setName("Ana");
+            IdCard idCard = new IdCard();
+            idCard.setNumber("923891290");
+            idCard.setPerson(p);
+            session.save(idCard);
+            session.save(p);
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            if (session != null) session.getTransaction().rollback();
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+    }
 }
