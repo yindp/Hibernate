@@ -4,14 +4,14 @@ package com.yinom.pdd.hibernate01.bean;
  * Created by yindp on 4/22/17.
  */
 public class Department {
-    private int id;
+    private String id;
     private String name;
 
     public Department() {
 
     }
 
-    public Department(int id, String name) {
+    public Department(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -24,11 +24,11 @@ public class Department {
                 '}';
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

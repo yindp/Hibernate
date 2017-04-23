@@ -19,6 +19,7 @@
         <property name="password"/>
         <property name="nickname"/>
         <property name="salary" type="double"/>
+        <many-to-one name="department" column="id_department"/>
     </class>
 
 </hibernate-mapping>

@@ -9,16 +9,35 @@ public class Employee {
     private String password;
     private String nickname;
     private double salary;
+    private Department department;
 
     @Override
     public String toString() {
         return "Employee{" +
-                "id=" + id +
+                "id='" + id + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 ", nickname='" + nickname + '\'' +
                 ", salary=" + salary +
+                ", department=" + department +
                 '}';
+    }
+
+    public Employee(String id, String username, String password, String nickname, double salary, Department department) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.nickname = nickname;
+        this.salary = salary;
+        this.department = department;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
     }
 
     public Employee() {
