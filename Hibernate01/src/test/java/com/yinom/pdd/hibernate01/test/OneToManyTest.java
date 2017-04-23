@@ -15,16 +15,16 @@ import java.util.Set;
 public class OneToManyTest {
     @Test
     public void test() {
-        Employee employee1 = new Employee("Ada", "333", "ada", 1000);
-        Employee employee2 = new Employee("Tom", "222", "tom", 1000);
-        Employee employee3 = new Employee("Sam", "123", "sam", 1000);
+        Employee employee1 = new Employee("Ada1", "333", "ada1", 1000);
+        Employee employee2 = new Employee("Tom1", "222", "tom1", 1000);
+        Employee employee3 = new Employee("Sam1", "123", "sam1", 1000);
         Department department = new Department();
-        department.setName("Finance");
+        department.setName("Finance111");
         Set<Employee> employees = new HashSet<>();
         employees.add(employee1);
         employees.add(employee2);
         employees.add(employee3);
-        /*department.setEmployees(employees);*/
+        department.setEmployeeSet(employees);
         Session session = null;
         try {
             session = MySessionFactory.openSession();

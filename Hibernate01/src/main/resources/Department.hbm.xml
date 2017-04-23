@@ -19,6 +19,10 @@
                 -->
         </id>
         <property name="name"/>
+        <set name="employeeSet" cascade="save-update">
+            <key column="id_department"/>
+            <one-to-many class="Employee"/>
+        </set>
     </class>
 
 </hibernate-mapping>

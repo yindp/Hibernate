@@ -1,11 +1,22 @@
 package com.yinom.pdd.hibernate01.bean;
 
+import java.util.Set;
+
 /**
  * Created by yindp on 4/22/17.
  */
 public class Department {
     private String id;
     private String name;
+    private Set<Employee> employeeSet;
+
+    public Set<Employee> getEmployeeSet() {
+        return employeeSet;
+    }
+
+    public void setEmployeeSet(Set<Employee> employeeSet) {
+        this.employeeSet = employeeSet;
+    }
 
     public Department() {
 
