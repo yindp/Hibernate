@@ -19,7 +19,7 @@
                 -->
         </id>
         <property name="name"/>
-        <set name="employeeSet" cascade="save-update">
+        <set name="employeeSet" cascade="save-update" lazy="extra">
             <key column="id_department"/>
             <one-to-many class="Employee"/>
         </set>

@@ -4,6 +4,7 @@ import com.yinom.pdd.hibernate01.bean.Department;
 import com.yinom.pdd.hibernate01.bean.Employee;
 import com.yinom.pdd.hibernate01.util.MySessionFactory;
 import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.junit.Test;
 
 import java.util.HashSet;
@@ -40,5 +41,20 @@ public class OneToManyTest {
         } finally {
             MySessionFactory.close(session);
         }
+    }
+
+    @Test
+    public void test02() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            Department department = session.load(Department.class, "ff8080815b99807f015b9980804f0000");
+            System.out.println(department);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+
     }
 }
