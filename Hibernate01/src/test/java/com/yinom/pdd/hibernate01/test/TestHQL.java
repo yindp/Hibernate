@@ -121,15 +121,19 @@ public class TestHQL {
     }
 
     @Test
-    public void testAvg() {
+    public void testCommon() {
         Session session = null;
         try {
             session = MySessionFactory.openSession();
-            Double avgSalary =(Double) session.createQuery("select avg(salary) from Employee").uniqueResult();
-            System.out.println("Avg salary:"+avgSalary);
+            Double avgSalary = (Double) session.createQuery("select avg(salary) from Employee").uniqueResult();
+            System.out.println("Avg salary:" + avgSalary);
             Object[] salary = (Object[]) session.createQuery("select max (salary),min (salary) from Employee").uniqueResult();
-            System.out.println("Max salary:"+salary[0]);
-            System.out.println("Min salary:"+salary[1]);
+            System.out.println("Max salary:" + salary[0]);
+            System.out.println("Min salary:" + salary[1]);
+            List<Employee> employeeList = session.createQuery("from employee group by department.id").list();
+            for (Employee employee : employeeList) {
+                System.out.println(employee);
+            }
         } catch (Exception e) {
 
             e.printStackTrace();
