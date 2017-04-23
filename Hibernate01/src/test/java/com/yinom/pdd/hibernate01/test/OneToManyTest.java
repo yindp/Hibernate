@@ -33,6 +33,9 @@ public class OneToManyTest {
 
             session.getTransaction().commit();
         } catch (Exception e) {
+            if (session != null) {
+                session.getTransaction().rollback();
+            }
             e.printStackTrace();
         } finally {
             MySessionFactory.close(session);
