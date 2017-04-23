@@ -79,4 +79,23 @@ public class TestHQL {
 
 
     }
+    @Test
+    public void testDistinct() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            List<String> list = session.createQuery("select distinct nickname from Employee").list();
+            for (int i = 0; i < list.size(); i++) {
+                String obj = list.get(i);
+                System.out.println(obj);
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+
+
+    }
 }
