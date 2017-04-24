@@ -12,6 +12,7 @@ import java.util.Map;
 public class HibernateUtil {
     /**
      * Common query method
+     *
      * @param hql
      * @param params
      * @return
@@ -36,7 +37,8 @@ public class HibernateUtil {
         }
         return list;
     }
-    public static List executeQuery(String hql, Map<String,String> params) {
+
+    public static List executeQuery(String hql, Map<String, String> params) {
         List list = null;
         Session session = null;
         try {
@@ -47,6 +49,29 @@ public class HibernateUtil {
                     query.setString(key, params.get(key));
                 }
             }
+            list = query.list();
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+        return list;
+    }
+
+    public static List executeQuery(String hql, Map<String, String> params,int pageSize,int pageNum) {
+        List list = null;
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            Query query = session.createQuery(hql);
+            if (params != null && params.size() > 0) {
+                for (String key : params.keySet()) {
+                    query.setString(key, params.get(key));
+                }
+            }
+            query.setFirstResult((pageNum - 1) * pageSize);
+            query.setMaxResults(pageSize);
             list = query.list();
         } catch (Exception e) {
 
