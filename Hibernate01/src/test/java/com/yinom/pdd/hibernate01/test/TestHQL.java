@@ -248,6 +248,7 @@ public class TestHQL {
             System.out.println(employee);
         }
     }
+
     @Test
     public void testQueryUtil02() {
         String hql = "from Employee where salary between :s1 and :s2";
@@ -259,15 +260,26 @@ public class TestHQL {
             System.out.println(employee);
         }
     }
+
     @Test
     public void testQueryUtil03() {
         String hql = "from Employee where salary between :s1 and :s2 order by salary";
         Map<String, String> params = new HashMap<>();
         params.put("s1", "800");
         params.put("s2", "1000");
-        List<Employee> employeeList = HibernateUtil.executeQuery(hql, params,3,2);
+        List<Employee> employeeList = HibernateUtil.executeQuery(hql, params, 3, 2);
         for (Employee employee : employeeList) {
             System.out.println(employee);
+        }
+    }
+
+    @Test
+    public void testQuery() {
+        String hql = "select emp from Employee emp right join emp.department d where d.id=?";
+        String[] params = new String[]{"1"};
+        List<Employee> employeeList = HibernateUtil.executeQuery(hql, params);
+        for (Employee em : employeeList) {
+            System.out.println(em);
         }
     }
 }
