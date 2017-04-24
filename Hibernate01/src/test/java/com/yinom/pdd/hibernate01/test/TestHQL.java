@@ -1,14 +1,13 @@
 package com.yinom.pdd.hibernate01.test;
 
 import com.yinom.pdd.hibernate01.bean.Employee;
+import com.yinom.pdd.hibernate01.util.HibernateUtil;
 import com.yinom.pdd.hibernate01.util.MySessionFactory;
 import org.hibernate.Session;
 import org.hibernate.query.Query;
 import org.junit.Test;
 
-import java.util.EnumMap;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by yindp on 4/23/17.
@@ -228,7 +227,7 @@ public class TestHQL {
             System.out.println("********************************");
             Query query = session.createQuery("from Employee where salary > :s");
             query.setDouble("s", 800);
-            List<Employee> employeeList2=query.list();
+            List<Employee> employeeList2 = query.list();
             for (Employee employee : employeeList2) {
                 System.out.println(employee);
             }
@@ -237,6 +236,27 @@ public class TestHQL {
             e.printStackTrace();
         } finally {
             MySessionFactory.close(session);
+        }
+    }
+
+    @Test
+    public void testQueryUtil01() {
+        String hql = "from Employee where salary between ? and ?";
+        String[] params = {"800", "1000"};
+        List<Employee> employeeList = HibernateUtil.executeQuery(hql, params);
+        for (Employee employee : employeeList) {
+            System.out.println(employee);
+        }
+    }
+    @Test
+    public void testQueryUtil02() {
+        String hql = "from Employee where salary between :s1 and :s2";
+        Map<String, String> params = new HashMap<>();
+        params.put("s1", "800");
+        params.put("s2", "1000");
+        List<Employee> employeeList = HibernateUtil.executeQuery(hql, params);
+        for (Employee employee : employeeList) {
+            System.out.println(employee);
         }
     }
 }
