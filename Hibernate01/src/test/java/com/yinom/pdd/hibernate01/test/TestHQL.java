@@ -4,7 +4,9 @@ import com.yinom.pdd.hibernate01.bean.Employee;
 import com.yinom.pdd.hibernate01.bean.EmployeeDto;
 import com.yinom.pdd.hibernate01.util.HibernateUtil;
 import com.yinom.pdd.hibernate01.util.MySessionFactory;
+import org.hibernate.Criteria;
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.hibernate.query.Query;
 import org.junit.Test;
 
@@ -315,6 +317,25 @@ public class TestHQL {
             Query query = session.getNamedQuery("queryLike");
             query.setParameter("username", "%Ada%");
             List<Employee> list = query.list();
+            for (Employee em : list) {
+                System.out.println(em);
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+    }
+    @Test
+    public void tesCriteria() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            Criteria c = session.createCriteria(Employee.class);
+            c.add(Restrictions.like("username", "%ada%"));
+            List<Employee> list = c.list();
             for (Employee em : list) {
                 System.out.println(em);
             }
