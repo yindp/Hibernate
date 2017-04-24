@@ -21,5 +21,9 @@
         <property name="salary" type="double"/>
         <many-to-one name="department" column="id_department"/>
     </class>
+    <query name="queryLike">
+        <![CDATA[from Employee where username like :username]]>
+    </query>
+
 
 </hibernate-mapping>

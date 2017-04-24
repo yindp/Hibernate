@@ -289,15 +289,41 @@ public class TestHQL {
         String hql = "select emp.id,emp.username,emp.nickname,emp.salary,d.name from Employee emp right join emp.department d";
         List<Object[]> list = HibernateUtil.executeQuery(hql, new String[]{});
         for (Object[] objs : list) {
-            System.out.println(objs[0]+":"+objs[1]+":"+objs[2]+":"+objs[3]+":"+objs[4]);
+            System.out.println(objs[0] + ":" + objs[1] + ":" + objs[2] + ":" + objs[3] + ":" + objs[4]);
         }
     }
+
     @Test
     public void testQueryDTO() {
         String hql = "select new com.yinom.pdd.hibernate01.bean.EmployeeDto(emp.id,emp.username,emp.nickname,emp.salary,d.name)from Employee emp right join emp.department d";
         List<EmployeeDto> list = HibernateUtil.executeQuery(hql, new String[]{});
         for (EmployeeDto edto : list) {
             System.out.println(edto);
+        }
+    }
+
+    /**
+     * Query base xml config file Employee.hbm.xml
+     *
+     * query like needs %
+     */
+    @Test
+    public void testQueryLike() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            Query query = session.getNamedQuery("queryLike");
+            query.setParameter("username", "%Ada%");
+            List<Employee> list = query.list();
+            for (Employee em : list) {
+                System.out.println(em);
+            }
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
         }
     }
 }
