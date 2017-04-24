@@ -3,8 +3,10 @@ package com.yinom.pdd.hibernate01.test;
 import com.yinom.pdd.hibernate01.bean.Employee;
 import com.yinom.pdd.hibernate01.util.MySessionFactory;
 import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.junit.Test;
 
+import java.util.EnumMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -159,8 +161,6 @@ public class TestHQL {
         } finally {
             MySessionFactory.close(session);
         }
-
-
     }
 
     @Test
@@ -180,11 +180,57 @@ public class TestHQL {
             sumPage = (sumRecord - 1) / pageSize + 1;
 
             for (int i = 0; i < sumPage; i++) {
-                System.out.println("*****************NO" + (i+1) + " Page");
+                System.out.println("*****************NO" + (i + 1) + " Page");
                 List<Employee> employeeList = session.createQuery("from Employee").setFirstResult((i - 1) * pageSize).setMaxResults(pageSize).list();
                 for (Employee employee : employeeList) {
                     System.out.println(employee);
                 }
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+    }
+
+    @Test
+    public void testParameter() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            List<Employee> employeeList = session.createQuery("from Employee order by salary").setFirstResult(0).setMaxResults(3).list();
+            for (Employee employee : employeeList) {
+                System.out.println(employee);
+            }
+        } catch (Exception e) {
+
+            e.printStackTrace();
+        } finally {
+            MySessionFactory.close(session);
+        }
+    }
+
+    @Test
+    public void testPara() {
+        Session session = null;
+        try {
+            session = MySessionFactory.openSession();
+            List<Employee> employeeList = session.createQuery("from Employee where salary >:s").setDouble("s", 800).list();
+            for (Employee employee : employeeList) {
+                System.out.println(employee);
+            }
+            System.out.println("*********************************");
+            List<Employee> employeeList1 = session.createQuery("from Employee where salary between ? and?").setDouble(0, 800).setDouble(1, 1000).list();
+            for (Employee employee : employeeList1) {
+                System.out.println(employee);
+            }
+            System.out.println("********************************");
+            Query query = session.createQuery("from Employee where salary > :s");
+            query.setDouble("s", 800);
+            List<Employee> employeeList2=query.list();
+            for (Employee employee : employeeList2) {
+                System.out.println(employee);
             }
         } catch (Exception e) {
 
