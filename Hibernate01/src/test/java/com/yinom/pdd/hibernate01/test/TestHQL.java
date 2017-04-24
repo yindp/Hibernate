@@ -1,6 +1,7 @@
 package com.yinom.pdd.hibernate01.test;
 
 import com.yinom.pdd.hibernate01.bean.Employee;
+import com.yinom.pdd.hibernate01.bean.EmployeeDto;
 import com.yinom.pdd.hibernate01.util.HibernateUtil;
 import com.yinom.pdd.hibernate01.util.MySessionFactory;
 import org.hibernate.Session;
@@ -280,6 +281,23 @@ public class TestHQL {
         List<Employee> employeeList = HibernateUtil.executeQuery(hql, params);
         for (Employee em : employeeList) {
             System.out.println(em);
+        }
+    }
+
+    @Test
+    public void testQuery01() {
+        String hql = "select emp.id,emp.username,emp.nickname,emp.salary,d.name from Employee emp right join emp.department d";
+        List<Object[]> list = HibernateUtil.executeQuery(hql, new String[]{});
+        for (Object[] objs : list) {
+            System.out.println(objs[0]+":"+objs[1]+":"+objs[2]+":"+objs[3]+":"+objs[4]);
+        }
+    }
+    @Test
+    public void testQueryDTO() {
+        String hql = "select new com.yinom.pdd.hibernate01.bean.EmployeeDto(emp.id,emp.username,emp.nickname,emp.salary,d.name)from Employee emp right join emp.department d";
+        List<EmployeeDto> list = HibernateUtil.executeQuery(hql, new String[]{});
+        for (EmployeeDto edto : list) {
+            System.out.println(edto);
         }
     }
 }
