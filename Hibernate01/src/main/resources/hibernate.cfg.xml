@@ -10,6 +10,13 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/emplmgmt?useSSL=false</property>
         <property name="hibernate.connection.username">root</property>
         <property name="hibernate.connection.password">Password2@12#.</property>
+
+        <property name="hibernate.cache.use_second_level_cache">true</property>
+        <property name="hibernate.cache.provider_class">net.sf.ehcache.hibernate.EhCacheProvider</property>
+        <property name="hibernate.cache.region.factory_class">org.hibernate.cache.ehcache.EhCacheRegionFactory
+        </property>
+        <property name="hibernate.cache.provider_configuration_file_resource_path">ehcache.xml</property>
+
         <property name="hibernate.hbm2ddl.auto">update</property>
 
         <mapping resource="Employee.hbm.xml"/>
@@ -23,5 +30,6 @@
         <!--Hibernate Annotation-->
         <mapping class="com.yinom.pdd.hibernate01.bean.User"/>
         <mapping class="com.yinom.pdd.hibernate01.bean.Role"/>
+        <class-cache class="com.yinom.pdd.hibernate01.bean.Employee" usage="read-only"/>
     </session-factory>
 </hibernate-configuration>
